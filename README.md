@@ -29,8 +29,7 @@ At a high level, the system involves several interconnected components:
 
 - **User Input:**
     - A **Flask Frontend** web form captures preferences like destination, travel dates, budget, number of travelers, interests (e.g., cultural heritage, nightlife, adventure), and desired pace.
-    - Example UI:
-      ![Main Page](./images/main_page.png)
+   
 
 - **AI Engine (Gemini/Vertex AI):**
     - Uses prompt engineering to generate personalized itineraries. Example prompt:
@@ -120,13 +119,20 @@ At a high level, the system involves several interconnected components:
 
 ## 6. Visualizing the User Flow
 
-The user flow involves:
-1. Inputting preferences via the web form.
-2. Generating a dynamic itinerary using AI.
-3. Adjusting the itinerary in real-time based on conditions.
-4. Finalizing bookings and sharing the itinerary.
+The user flow involves the following steps:
+
+1. **Input Preferences:** Users provide travel details such as destination, dates, budget, and interests via a web form.
+2. **Generate Itinerary:** The AI engine creates a dynamic, personalized itinerary based on the provided preferences.
+3. **Real-Time Adjustments:** The system updates the itinerary in real-time based on weather, traffic, and availability.
+4. **Finalize & Share:** Users can finalize bookings, download the itinerary as a PDF, or share it via a unique URL.
 
 ---
 
 This project leverages the power of AI and cloud technologies to deliver a personalized and dynamic travel planning experience.
 
+### Example UI:
+- **Main Page:**
+  ![Main Page](./images/main_page.png)
+
+- **Result Page:**
+  ![Result Page](./images/result_page.png)
