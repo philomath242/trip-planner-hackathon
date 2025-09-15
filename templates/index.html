@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripGPT</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/static/main_background.png') no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(8px);
+            z-index: -1;
+        }
+
+        h1 {
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(90deg, #007BFF, #00C6FF); /* Gradient background */
+            color: #fff;
+            text-align: center;
+            padding: 15px 30px; /* Add padding for a rectangle shape */
+            border-radius: 25px; /* Rounded corners */
+            font-size: 24px; /* Adjust font size */
+            font-weight: bold;
+            margin: 50px auto; /* Center horizontally */
+            width: fit-content; /* Adjust width to fit content */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+        }
+
+        form {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+            backdrop-filter: blur(10px); /* Glass effect */
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 60%;
+            margin: 50px auto;
+        }
+
+        form input,
+        form button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        form input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 8px;
+            background: #ddd;
+            border-radius: 5px;
+            outline: none;
+            opacity: 0.9;
+            transition: opacity 0.2s;
+        }
+
+        form input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #007BFF;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        form input[type="range"]:hover {
+            opacity: 1;
+        }
+
+        form button {
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+
+        #traveltheme-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly; /* Ensures equal spacing between items */
+            gap: 20px; /* Space between rows */
+            margin-top: 20px;
+        }
+
+        .themebutton {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100px; /* Adjust width for consistent sizing */
+            text-align: center;
+        }
+
+        .themebutton button {
+            width: 80px; /* Circle diameter */
+            height: 80px; /* Circle diameter */
+            border-radius: 50%; /* Makes the button circular */
+            background: linear-gradient(90deg, #007BFF, #00C6FF); /* Gradient background */
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .themebutton button:hover {
+            transform: scale(1.1); /* Slight zoom effect on hover */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+        }
+
+        .themebutton button:active {
+            transform: scale(0.95); /* Slight shrink effect on click */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow on click */
+        }
+
+        .themebutton p {
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Plan My Personalized Trip with AI</h1>
+    <form>
+        <input type="text" placeholder="From" required>
+        <input type="text" placeholder="To" required>
+        <label for="start-date">Start Date:</label>
+        <input type="date" id="start-date" required>
+        <label for="end-date">End Date:</label>
+        <input type="date" id="end-date" required>
+        <input type="number" placeholder="No. of travellers" required>
+        
+        <label for="budget">Budget:</label>
+        <div>
+            <span id="min-budget">100</span>
+            <input type="range" id="budget" name="budget" min="100" max="100000" step="100" value="5000" oninput="updateBudgetValue(this.value)">
+            <span id="max-budget">100000</span>
+        </div>
+        <p>Selected Budget: <span id="current-budget">5000</span></p>
+        
+        <div id="traveltheme-buttons">
+            <div class="themebutton">
+                <button type="submit"></button>
+                <p>Nature</p>
+            </div>
+            <div class="themebutton">
+                <button type="submit"></button>
+                <p>Cultural Heritage</p>
+            </div>
+            <div class="themebutton">
+                <button type="submit"></button>
+                <p>History</p>
+            </div>
+            <div class="themebutton">
+                <button type="submit"></button>
+                <p>Nightlife</p>
+            </div>
+            <div class="themebutton">
+                <button type="submit"></button>
+                <p>Adventure</p>
+            </div>
+            <div class="themebutton">
+                <button type="submit"></button>
+                <p>Foodie</p>
+            </div>
+            <div class="themebutton">
+                <button type="submit"></button>
+                <p>Relaxation</p>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        function updateBudgetValue(value) {
+            document.getElementById('current-budget').textContent = value;
+        }
+    </script>
+</body>
+
+</html>
