@@ -1,3 +1,16 @@
+## Run locally
+
+The project is managed with `uv`
+Install with `python -m pip install uv`
+
+The `pyproject.toml` file contains the dependencies for the project
+
+To render the main page with flask, run the `main.py` file inside a virtual environment created with `uv`
+
+`python main.py`
+It should serve on `localhost:5000`
+
+
 # Trip Planner Hackathon
 
 ## Table of Contents
