@@ -10,6 +10,7 @@ To render the main page with flask, run the `main.py` file inside a virtual envi
 `python main.py`
 It should serve on `localhost:5000`
 
+         
 
 # Trip Planner Hackathon
 
