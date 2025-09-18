@@ -10,6 +10,17 @@ To render the main page with flask, run the `main.py` file inside a virtual envi
 `python main.py`
 It should serve on `localhost:5000`
 
+The project expects gemini key either from a file named `gemini.key` or from environmental variable `GEMINI_API_KEY`
+
+## Run with docker
+
+Build image with a tag
+
+`docker build -t trip-planner-hackathon:<version_tag>  .`
+
+Run image 
+
+`docker run --rm -p 3580:5000 -e GEMINI_API_KEY="<API_KEY>" trip-planner-hackathon:<version_tag>`
          
 
 # Trip Planner Hackathon
