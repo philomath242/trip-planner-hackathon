@@ -51,6 +51,8 @@ coverage.xml
 .pytest_cache/
 cover/
 
+gemini.key
+
 # Translations
 *.mo
 *.pot

@@ -12,36 +12,30 @@
 
 <body>
     <h1>Plan My Personalized Trip with AI</h1>
-    <form>
+    <form action="/submit" method="post" id="trip-form">
         <div class="location-inputs">
             <div id="from-container">
-
-                <input type="text" id="from" placeholder=" " required>
+                <input name="from" type="text" id="from" placeholder=" " required>
                 <label for="from">From</label>
             </div>
             <div id="to-container">
-                <input type="text" id="to" placeholder=" " required>
+                <input name="to" type="text" id="to" placeholder=" " required>
                 <label for="to">To</label>
-
             </div>
         </div>
         <div class="date-range">
             <div id="start-date-container">
-
                 <label for="start-date">Start Date:</label>
-                <input type="date" id="start-date" required>
+                <input type="date" id="start-date" name="start_date" required>
             </div>
             <div id="end-date-container">
-
                 <label for="end-date">End Date:</label>
-                <input type="date" id="end-date" required>
-
+                <input type="date" id="end-date" name="end_date" required>
             </div>
         </div>
-
         <div class="nostravellers">
             <label for="travellers">No. of Travellers:</label>
-            <select id="travellers" required>
+            <select id="travellers" name="travellers" required>
                 <option value="" disabled selected>Select</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -57,9 +51,7 @@
                 <option value="12">12</option>
             </select>
         </div>
-
         <div class="budgetadjuster">
-
             <label for="budget">Budget:</label>
             <div>
                 <span id="min-budget">1000</span>
@@ -69,7 +61,6 @@
             </div>
             <p>Selected Budget: <span id="current-budget">5000</span></p>
         </div>
-
         <div id="traveltheme-buttons">
             <div class="themebutton">
                 <input type="radio" name="traveltheme" id="nature" value="nature">
@@ -114,6 +105,7 @@
                 <p>Relaxation</p>
             </div>
         </div>
+        <input type="submit" value="Plan My Trip" id="submit-button">
     </form>
 
     <script>

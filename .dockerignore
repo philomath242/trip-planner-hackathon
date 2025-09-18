@@ -1,0 +1,12 @@
+# Ignore sensitive files
+gemini.key
+
+# Ignore documentation and non-essential files
+README.md
+LICENSE
+uv.lock
+
+# Ignore local development files (if any)
+.venv
+*.pyc
+__pycache__/
