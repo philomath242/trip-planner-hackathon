@@ -1,9 +1,12 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, flash
 import google.generativeai as genai
 import os
+import secrets
 
 
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(16)
+
 
 def read_from_file(file_path):
     try:
@@ -13,11 +16,14 @@ def read_from_file(file_path):
         print(f"Error: File {file_path} not found.")
         return None
 
+
 # Prioritize environment variable over file
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY") or read_from_file("gemini.key")
 
 if not GEMINI_API_KEY:
-    raise ValueError("Error: GEMINI_API_KEY must be set via environment variable or gemini.key file")
+    raise ValueError(
+        "Error: GEMINI_API_KEY must be set via environment variable or gemini.key file"
+    )
 
 genai.configure(api_key=GEMINI_API_KEY)
 
@@ -36,6 +42,13 @@ except Exception as e:
 @app.route("/")
 def index():
     return render_template("index.html")
+
+
+@app.route("/results")
+def result():
+    plan = request.args.get("plan")
+
+    return render_template("result.html", plan=plan)
 
 
 @app.route("/submit", methods=["POST"])
@@ -57,9 +70,11 @@ def submit():
     prompt = (
         f"Plan a trip from {from_loc} to {to_loc} "
         f"starting on {start_date} and ending on {end_date} "
-        f"with a budget of {budget} and a travel theme of {travel_theme}. "
+        f"with a budget of {budget} INR and a travel theme of {travel_theme}. "
         f"Provide a detailed itinerary and suggestions."
     )
+
+    print(f"Generated Prompt: {prompt}")
 
     try:
         response = model.generate_content(prompt)
@@ -68,14 +83,12 @@ def submit():
             response_text = "".join(
                 [part.text for part in response.parts if hasattr(part, "text")]
             )
-            return response_text
+            return redirect(url_for("result", plan=response_text))
         else:
-            print("No content received from the AI model.", "warning")
-            return render_template(
-                "index.html", trip_plan="Could not generate trip plan."
-            )
+            return redirect(url_for("index"))
     except Exception as e:
-        print(f"An unexpected error occurred: {e}", "error")
+        flash(f"An unexpected error occurred: {e}", "error")
+        return redirect(url_for("index"))
 
 
 if __name__ == "__main__":
