@@ -28,10 +28,19 @@ if not GEMINI_API_KEY:
 genai.configure(api_key=GEMINI_API_KEY)
 
 
+# print("Available models:")
+# for m in genai.list_models():
+#     # Filter for models that support generateContent, as that's what you likely need
+#     if "generateContent" in m.supported_generation_methods:
+#         print(f"  Name: {m.name} with Description: {m.description}")
+#         print(f"  Supported methods: {m.supported_generation_methods}")
+#         print("-" * 20)
+
+
 try:
     # Ensure the API key is valid before trying to get the model
     if GEMINI_API_KEY:
-        model = genai.GenerativeModel("models/gemini-pro")
+        model = genai.GenerativeModel("models/gemini-1.5-pro")
     else:
         model = None
 except Exception as e:
@@ -77,7 +86,7 @@ def submit():
     print(f"Generated Prompt: {prompt}")
 
     try:
-        response = model.generate_content(prompt)
+        response = model.generateContent(prompt)
 
         if response and response.parts:
             response_text = "".join(
