@@ -1,6 +1,6 @@
 [project]
 name = "trip-planner-hackathon"
-version = "0.5.0"
+version = "0.5.2"
 description = "Flask based app for trip planning with GenAI"
 readme = "README.md"
 requires-python = ">=3.13"

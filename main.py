@@ -86,7 +86,7 @@ def submit():
     print(f"Generated Prompt: {prompt}")
 
     try:
-        response = model.generateContent(prompt)
+        response = model.generate_content(prompt)
 
         if response and response.parts:
             response_text = "".join(
