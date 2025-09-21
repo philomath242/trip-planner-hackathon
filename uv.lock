@@ -505,7 +505,7 @@ wheels = [
 
 [[package]]
 name = "trip-planner-hackathon"
-version = "0.5.2"
+version = "0.6.0"
 source = { virtual = "." }
 dependencies = [
     { name = "flask" },
