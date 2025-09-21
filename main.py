@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 import google.generativeai as genai
 import os
 import secrets
-
+import markdown
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
@@ -74,7 +74,7 @@ def submit():
     end_date = request.form["end_date"]
     budget = request.form["budget"]
     travel_theme = request.form["traveltheme"]
-
+    no_of_people = request.form["travellers"]
     # Construct the prompt
     # prompt = (
     #     f"Plan a trip from {from_loc} to {to_loc} "
@@ -86,7 +86,7 @@ def submit():
     prompt = (
         f"Create a detailed travel itinerary for a trip from {from_loc} to {to_loc}, "
         f"starting on {start_date} (YYYY-MM-DD) and ending on {end_date} (YYYY-MM-DD), "
-        f"with a total budget of {budget} INR and a travel theme of {travel_theme}. "
+        f"with a total budget of {budget} INR and a travel theme of {travel_theme} consisting {no_of_people} traveller(s). "
         f"Include the following in the response, formatted in Markdown for clarity:\n"
         f"- **Overview**: A brief summary of the trip, including the theme and key highlights.\n"
         f"- **Itinerary**: A day-by-day plan with specific activities, locations, and estimated times (e.g., morning, afternoon, evening).\n"
