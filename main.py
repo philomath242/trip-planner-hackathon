@@ -76,11 +76,32 @@ def submit():
     travel_theme = request.form["traveltheme"]
 
     # Construct the prompt
+    # prompt = (
+    #     f"Plan a trip from {from_loc} to {to_loc} "
+    #     f"starting on {start_date} and ending on {end_date} "
+    #     f"with a budget of {budget} INR and a travel theme of {travel_theme}. "
+    #     f"Provide a detailed itinerary and suggestions."
+    # )
+
     prompt = (
-        f"Plan a trip from {from_loc} to {to_loc} "
-        f"starting on {start_date} and ending on {end_date} "
-        f"with a budget of {budget} INR and a travel theme of {travel_theme}. "
-        f"Provide a detailed itinerary and suggestions."
+        f"Create a detailed travel itinerary for a trip from {from_loc} to {to_loc}, "
+        f"starting on {start_date} (YYYY-MM-DD) and ending on {end_date} (YYYY-MM-DD), "
+        f"with a total budget of {budget} INR and a travel theme of {travel_theme}. "
+        f"Include the following in the response, formatted in Markdown for clarity:\n"
+        f"- **Overview**: A brief summary of the trip, including the theme and key highlights.\n"
+        f"- **Itinerary**: A day-by-day plan with specific activities, locations, and estimated times (e.g., morning, afternoon, evening).\n"
+        f"- **Transportation**: Suggested modes of travel (e.g., flights, trains, buses) with estimated costs and booking tips.\n"
+        f"- **Accommodation**: Recommended places to stay (e.g., hotels, hostels, or rentals) within the budget, including estimated costs.\n"
+        f"- **Activities**: Specific activities aligned with the {travel_theme} theme (e.g., cultural visits, adventure, food tours), including estimated costs.\n"
+        f"- **Dining**: Suggested dining options that reflect local cuisine or the travel theme, with approximate costs.\n"
+        f"- **Budget Breakdown**: A clear table summarizing costs for transportation, accommodation, activities, dining, and any miscellaneous expenses, ensuring the total stays within {budget} INR.\n"
+        f"- **Tips and Notes**: Practical advice (e.g., packing tips, local customs, safety considerations) and any budget-saving suggestions.\n"
+        f"Constraints:\n"
+        f"- Ensure all costs are in INR and do not exceed the {budget} INR budget.\n"
+        f"- Use realistic and practical suggestions based on current travel conditions as of today.\n"
+        f"- Prioritize activities and experiences that strongly align with the {travel_theme} theme.\n"
+        f"- Provide specific names of places, restaurants, or services where possible, and avoid generic suggestions.\n"
+        f"Return the response in well-structured Markdown format, with clear headings, bullet points, and a table for the budget breakdown."
     )
 
     print(f"Generated Prompt: {prompt}")
@@ -92,7 +113,9 @@ def submit():
             response_text = "".join(
                 [part.text for part in response.parts if hasattr(part, "text")]
             )
-            return redirect(url_for("result", plan=response_text))
+
+            response_html = markdown.markdown(response_text)
+            return redirect(url_for("result", plan=response_html))
         else:
             return redirect(url_for("index"))
     except Exception as e:

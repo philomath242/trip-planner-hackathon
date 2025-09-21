@@ -54,7 +54,7 @@
 
 <body>
     <h1>AI Trip Plan Results</h1>
-    <p>{{ plan }}</p>
+    <p>{{ plan | safe }}</p>
     <div class="link-container">
         <a href="{{ url_for('index') }}">Back to homepage</a>
     </div>
